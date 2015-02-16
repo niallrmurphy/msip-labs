@@ -1,0 +1,68 @@
+Day 5: Capacity and planning
+
+As a rule of thumb: commit the data files, scripts to create your plots and benchmark scripts.
+Document your used parameters and environment as well so it is possible to verify your result.
+
+(a) Using yesterday’s setup...
+- Tag your yesterday work as groupname-day4
+- EOD - tag your work as groupname-day5
+
+(b) Estimage performance characteristics of webservice under load. If you fire
+X load, how much qps do you get out? Latency response is also crucial - measure
+average and variance around that.
+
+Have a look into httperf or ab to do the benchmarking. Please note that typically not all requests are done sequentially
+
+Create plots with gnuplot (simplest) or any other plotting solution you know to support your findings.
+
+Gnuplot info:
+http://people.duke.edu/~hpgavin/gnuplot.html
+http://www.ibm.com/developerworks/library/l-gnuplot/
+
+Python plotting:
+
+sudo apt-get install ipython python-numpy ipython-qtconsole python-matplotlib
+
+Getting started:
+http://scipy.org/Getting_Started
+http://www.slideshare.net/giovanni/plotting-data-with-python-and-pylab#btnNext
+
+ipython qtconsole --pylab inline
+plot(rand(10))
+
+x = randn(1000)
+hist(x, 100)
+
+scatter(rand(100), rand(100))
+
+(c) Bonus points: Is there a different characteristic between apache and the integrated Django test web server.
+
+(d) Bonus points: how much qps of which type of HTTP response code? [It’s usually quite fast to serve 500s!]
+(e) Bonus points: How does the behaviour change for different database size. Use feedback_webapp/generate_data.sh to generate additional data.
+(d) Examine the question of whether the software has performance characteristics that varies under different envi- ronmental conditions. Consider constraining webserver to run with e.g. 1Mb of RAM via ulimit.
+
+Note: To modify the ulimits you can edit /etc/apache2/envvars and edit APACHE_ULIMIT_MAX_FILES
+To get an overview of the available limits and command line options you can run ulimit -a
+
+(e) Bonus points: use containers to similarly constrain CPU.
+
+You can either use lxc, openvz or cgroups.
+
+Short introduction for cgroups:
+
+sudo apt-get update ; sudo apt-get install cgroup-bin
+sudo cgcreate -g memory:apache
+sudo cgclassify --sticky -g memory:apache $(pidof apache2)
+cd /sys/fs/cgroup/memory/apache
+sudo -s
+echo WHATEVAR > memory.limit_in_bytes
+....
+
+Complete overview
+=================
+https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/ch01.html
+
+(f) Bonus bonus points: check this all into source control so you have a fully reproduceable performance harness (i.e. script to control the cpu/memory constraints etc.)
+(g) How would you improve performance for 10x, 100x, 1000x the qps levels?
+(h) Implement a simple caching system (e.g. via varnish, or squid reverse proxy) in front of the service and measure performance again.
+(0) Bonus points: What are obvious problems with the current application (application level) and what can you do to change it.

@@ -1,0 +1,24 @@
+Day 3: Config management
+
+preliminaries:
+1) Download the simlir package from the repository.
+2) Install IPy
+3) You may have to modify IPy to stop it complaining that certain prefixes are unacceptable. If you get an error track it down and either modify IPy directly (hack out the offending lines) or, better, subclass IPy and override the offending method with a modified one.
+4) Read the readme
+5) Play with the simlir program.
+
+
+Main tasks:
+
+(a) Check out pre-baked program.
+(b) This program currently accepts config via arguments. How can this behaviour be preserved for testing?
+(c) Create launch script.
+(d) Rip out argument parsing in favour of configuration file parsing.
+(e) For extra marks, leave it in, and have one over-ride the other.
+(f) Bonus bonus points for figuring out which is the best way round, and why it’s vital to log which wins!
+(g) Groups can use their favourite config file format (.ini, yaml, pickle), but they must create a config file that expresses the semantics of the set of command line arguments, and verify that behaviour is maintained.
+(h) Each groups to check config file plus parser into their branch.
+(i) Download Google Protocol Buffer modules (http://code.google.com/apis/protocolbuffers/) and convert their format to ours.
+(j) Extend config file to include some tweak it didn’t beforehand.
+
+
